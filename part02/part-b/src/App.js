@@ -1,22 +1,12 @@
-import { useState } from 'react'
+import axios from 'axios';
+import { useState, useEffect } from 'react'
 import { Filter} from './components/Filter.js'
 import { NewPersonForm } from './components/NewPersonForm.js';
 import { ShowContent } from './components/ShowContent.js';
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas',
-      number: '555-233-2423',
-      id: 1 },
-    { name: 'John Magby',
-    number: '335-365-3245',
-    id: 2 },
-    { name: 'Melissa Rogers',
-    number: '326-475-8762',
-    id: 3 },
-    { name: 'Sarah Hellas',
-    number: '555-233-2423',
-    id: 4 }
+
   ])
 
   const [filteredPersons, setFilteredPersons] = useState(persons);
@@ -29,6 +19,17 @@ const App = () => {
     setFilteredPersons(filteredNames);
     console.log(filteredPersons);
   }
+
+  useEffect(() => {
+    console.log("effect");
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        console.log(response);
+        setPersons(response.data);
+        setFilteredPersons(response.data);
+      })
+  }, [])
 
   return (
     <div>
