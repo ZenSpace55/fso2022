@@ -2,23 +2,28 @@ import axios from 'axios';
 import { useState, useEffect } from 'react'
 import { Search } from './components/Search';
 import { ShowContent } from './components/ShowContent';
+import { ShowWeather } from './components/ShowWeather';
 
 const App = () => {
 
 const [countries, setCountries] = useState([]);
 const [resultCountries, setResultCountries] = useState([]);
+const [weatherString, setWeatherString] = useState(' ');
+const api_key = process.env.REACT_APP_API_KEY;
 
   const searchCountries = (searchTerm) => {
     console.log("searched!", searchTerm);
-    //console.log(countries);
     const searchResults = countries.filter((myName) => {
-      //console.log(myName);
-      //console.log("name is: " + JSON.stringify(myName.name));
       return myName.name.official.toLowerCase().includes(searchTerm.toLowerCase());
   });
   setResultCountries(searchResults);
-  //console.log(resultCountries);
   }
+
+  const setWeather = (country) => {
+    console.log("getting weather for ", country);
+    setWeatherString(country);
+  }
+
 
   useEffect(() => {
     console.log("effect");
@@ -34,8 +39,8 @@ const [resultCountries, setResultCountries] = useState([]);
   return (
     <div>
       < Search searchCountries={searchCountries} />
-      <p>hey...</p>
-      <ShowContent searchResults={resultCountries} searchCountries={searchCountries}/>
+      <ShowContent searchResults={resultCountries} searchCountries={searchCountries} setWeather={setWeather}/>
+      <ShowWeather weather={weatherString} />
     </div>
   )
 }

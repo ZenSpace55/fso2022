@@ -1,7 +1,21 @@
 import React from "react";
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+
+const api_key = process.env.REACT_APP_API_KEY;
+
+
 
 export const ShowContent = (props) => {
+
+    useEffect(() => {
+        console.log("HELP PLEASE!");
+        console.log(props.searchResults.length, " results...");
+        if (props.searchResults.length == 1){
+            console.log("GET WEATHER");
+            props.setWeather(props.searchResults[0]);
+        }
+    }, [props.searchResults]);
+    //props.setWeather("")
     if (props.searchResults.length > 10){
         return <p>too many results, please be more specific...</p>
     }
@@ -17,6 +31,7 @@ export const ShowContent = (props) => {
         console.log("result is ", result);
         if (result){
             console.log("languages: ", Object.values(result.languages));
+            //props.setWeather(result)
         return(
             <div>
                 <h1>{result.name.official}</h1>
@@ -29,6 +44,7 @@ export const ShowContent = (props) => {
                     {Object.values(result.languages).map(language => <li key={language}>{language} </li>)}
                 </ul>
                 <img src={result.flags.png}></img>
+                <h2>Weather in {result.capital}</h2>
             </div>
         )
         }
