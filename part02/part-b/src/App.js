@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { Filter} from './components/Filter.js'
 import { NewPersonForm } from './components/NewPersonForm.js';
 import { ShowContent } from './components/ShowContent.js';
+import bookService from './services/bookEntry.js'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -22,13 +23,19 @@ const App = () => {
 
   useEffect(() => {
     console.log("effect");
-    axios
+    /*axios
       .get('http://localhost:3001/persons')
       .then(response => {
         console.log(response);
         setPersons(response.data);
         setFilteredPersons(response.data);
-      })
+      })*/
+    bookService.getAll()
+    .then(response => {
+      setPersons(response.data);
+      setFilteredPersons(response.data);
+    })
+    
   }, [])
 
   return (
