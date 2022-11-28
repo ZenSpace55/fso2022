@@ -21,6 +21,15 @@ const App = () => {
     console.log(filteredPersons);
   }
 
+  const refresh = () => {
+    console.log("refreshing...");
+    bookService.getAll()
+    .then(response => {
+      setPersons(response.data);
+      setFilteredPersons(response.data);
+    })
+  }
+
   useEffect(() => {
     console.log("effect");
     /*axios
@@ -30,11 +39,12 @@ const App = () => {
         setPersons(response.data);
         setFilteredPersons(response.data);
       })*/
-    bookService.getAll()
+    /*bookService.getAll()
     .then(response => {
       setPersons(response.data);
       setFilteredPersons(response.data);
-    })
+    })*/
+    refresh();
     
   }, [])
 
@@ -44,7 +54,7 @@ const App = () => {
       <Filter persons={persons} filterPersons={filterPersons}/>
       <NewPersonForm persons={persons} setPersons={setPersons} setFilteredPersons={setFilteredPersons}/>
       <h2>Numbers</h2>
-      <ShowContent filteredPersons={filteredPersons}/>
+      <ShowContent filteredPersons={filteredPersons} refresh={refresh}/>
     </div>
   )
 }
