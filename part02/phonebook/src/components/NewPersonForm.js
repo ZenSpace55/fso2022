@@ -17,6 +17,31 @@ export const NewPersonForm = (props) => {
           number: newNumber,
         }
 
+        let nameExists = props.persons.find(person => person.name == nameObject.name);
+        console.log(nameExists);
+
+        if (nameExists){
+          if (window.confirm("Name already exists, update number?")){
+            console.log("update number");
+            bookService.update(nameExists.id, nameObject)
+            .then(response => {
+              console.log(response);
+              const updatedPersons = props.persons.map(person => {
+                if (person.id === nameExists.id) {
+                  return response.data;
+                }
+                return person;
+              });
+              props.setPersons(updatedPersons);
+              props.setFilteredPersons(updatedPersons);
+            })
+          }
+          else{
+            console.log("didn't update");
+          }
+        }
+
+        else{
           bookService.create(nameObject)
           .then(response => {
             console.log(response);
@@ -24,21 +49,9 @@ export const NewPersonForm = (props) => {
             props.setPersons(people);
             props.setFilteredPersons(people);
           })
+        }
 
           setNewID(newID + 1);
- /*       if (props.persons.filter(e => e.name === newName).length === 0){
-          console.log("name: ", newName, " unique");
-          const people = props.persons.concat([{name: newName, number: newNumber, id: newID}]);
-          props.setPersons(people);
-          props.setFilteredPersons(people);
-          setNewID(newID + 1);
-        }
-        else{
-          console.log("name already exists...");
-          window.alert("Name already exists. Please add a unique name.");
-        }
-        console.log(props.persons);
-        */
       }
 
     const nameChange = (event) => {
