@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { Filter} from './components/Filter.js'
 import { NewPersonForm } from './components/NewPersonForm.js';
 import { ShowContent } from './components/ShowContent.js';
+import { Notice } from './components/Notice.js';
 import bookService from './services/bookEntry.js'
 
 const App = () => {
@@ -20,6 +21,8 @@ const App = () => {
     setFilteredPersons(filteredNames);
     console.log(filteredPersons);
   }
+
+  const [errorMessage, setErrormessage] = useState(null);
 
   const refresh = () => {
     console.log("refreshing...");
@@ -51,10 +54,11 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notice message={errorMessage} />
       <Filter persons={persons} filterPersons={filterPersons}/>
-      <NewPersonForm persons={persons} setPersons={setPersons} setFilteredPersons={setFilteredPersons}/>
+      <NewPersonForm persons={persons} setPersons={setPersons} setFilteredPersons={setFilteredPersons} setErrormessage={setErrormessage}/>
       <h2>Numbers</h2>
-      <ShowContent filteredPersons={filteredPersons} refresh={refresh}/>
+      <ShowContent filteredPersons={filteredPersons} refresh={refresh} setErrormessage={setErrormessage}/>
     </div>
   )
 }

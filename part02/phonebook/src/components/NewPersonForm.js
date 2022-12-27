@@ -34,6 +34,9 @@ export const NewPersonForm = (props) => {
               });
               props.setPersons(updatedPersons);
               props.setFilteredPersons(updatedPersons);
+              props.setErrormessage(`Number of ${nameExists.name} updated!`)
+              setTimeout(() => {
+                props.setErrormessage(null)}, 5000)
             })
           }
           else{
@@ -48,6 +51,9 @@ export const NewPersonForm = (props) => {
             const people = props.persons.concat(response.data);
             props.setPersons(people);
             props.setFilteredPersons(people);
+            props.setErrormessage(`${nameExists.name} added!`)
+            setTimeout(() => {
+              props.setErrormessage(null)}, 5000)
           })
         }
 

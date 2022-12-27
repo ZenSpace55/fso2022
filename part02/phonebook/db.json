@@ -7,7 +7,7 @@
     },
     {
       "name": "jennifer",
-      "number": "6699",
+      "number": "87",
       "id": 2
     },
     {
@@ -24,21 +24,6 @@
       "name": "Roger Mendes",
       "number": "653-764-4437",
       "id": 7
-    },
-    {
-      "name": "johnny",
-      "number": "14",
-      "id": 8
-    },
-    {
-      "name": "joseph",
-      "number": "45",
-      "id": 9
-    },
-    {
-      "name": "bobert",
-      "number": "44",
-      "id": 10
     }
   ]
 }
