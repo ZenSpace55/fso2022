@@ -51,7 +51,7 @@ export const NewPersonForm = (props) => {
             const people = props.persons.concat(response.data);
             props.setPersons(people);
             props.setFilteredPersons(people);
-            props.setErrormessage(`${nameExists.name} added!`)
+            props.setErrormessage(`${nameObject.name} added!`)
             setTimeout(() => {
               props.setErrormessage(null)}, 5000)
           })
